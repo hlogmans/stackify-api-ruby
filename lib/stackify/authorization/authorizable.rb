@@ -15,6 +15,7 @@ module Stackify::Authorizable
         return unless @@auth_client.nil?
         @@auth_client = Stackify::Authorizable::AuthorizationClient.new
         @@auth_client.auth attempts
+        Stackify.internal_log :info, 'Releasing lock...'
       end
     end
 
@@ -26,12 +27,12 @@ module Stackify::Authorizable
 
     def authorized!
       Stackify.internal_log :info, 'Setting authorized...'
-      @@auth_lock.synchronize do
-        Stackify.internal_log :info, 'Setting authorized... Lock obtained...'
+      #@@auth_lock.synchronize do
+        #Stackify.internal_log :info, 'Setting authorized... Lock obtained...'
         @@authorized = true
       end
       Stackify.internal_log :info, 'Authorized set...'
-      Stackify.internal_log :info, "Authorized? : #{authorized?}"
+      #Stackify.internal_log :info, "Authorized? : #{authorized?}"
       
     end
 
