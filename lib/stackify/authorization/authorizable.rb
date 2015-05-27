@@ -25,9 +25,13 @@ module Stackify::Authorizable
     end
 
     def authorized!
+      Stackify.internal_log :info, 'Setting authorized...'
       @@auth_lock.synchronize do
         @@authorized = true
       end
+      Stackify.internal_log :info, 'Authorized set...'
+      Stackify.internal_log :info, "Authorized? : #{authorized?}"
+      
     end
 
     def successfull_authorisation response
