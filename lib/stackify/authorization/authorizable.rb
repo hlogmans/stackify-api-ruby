@@ -17,6 +17,7 @@ module Stackify::Authorizable
         @@auth_client.auth attempts
         Stackify.internal_log :info, 'Releasing lock...'
       end
+      Stackify.internal_log :info, 'Authorized? : #{authorized?}'
     end
 
     def authorized?
