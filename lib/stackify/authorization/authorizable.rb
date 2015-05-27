@@ -25,7 +25,9 @@ module Stackify::Authorizable
     end
 
     def authorized!
-      @@authorized = true
+      @@auth_lock.synchronize do
+        @@authorized = true
+      end
     end
 
     def successfull_authorisation response
